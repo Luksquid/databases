@@ -1,0 +1,21 @@
+1.
+DELETE FROM postac WHERE rodzaj = 'wiking' AND nazwa NOT LIKE 'Bjorn' ORDER BY wiek DESC LIMIT 3;
+
+1.b
+ALTER TABLE postac DROP PRIMARY KEY
+
+2.a
+ALTER TABLE postac ADD COLUMN pesel VARCHAR(11);
+ALTER TABLE postac ADD PRIMARY KEY(pesel);
+
+2.b 
+ALTER TABLE postac MODIFY rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena');
+
+2.c
+INSERT INTO postac VALUES(8, 'Gertruda_Nieszczera', 'syrena', '1050-12-01', 17, NULL, NULL, '22996617283');
+
+3.a
+UPDATE postac SET statek = 'Havets_kung' WHERE nazwa LIKE '%a%';
+
+3.b
+UPDATE statek SET max_ladownosc = max_ladownosc * 0.7 WHERE data_wodowania >= '1000-01-01' AND data_wodowania <= '1099-12-31';
