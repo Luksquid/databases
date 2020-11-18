@@ -19,3 +19,32 @@ UPDATE postac SET statek = 'Havets_kung' WHERE nazwa LIKE '%a%';
 
 3.b
 UPDATE statek SET max_ladownosc = max_ladownosc * 0.7 WHERE data_wodowania >= '1000-01-01' AND data_wodowania <= '1099-12-31';
+
+3.c
+ALTER TABLE postac ADD CHECK(wiek <1001);
+
+4.a
+INSERT INTO postac VALUES(9, "Loko", 'waz', '1020-12-11', 47, NULL, NULL, '21243569141');
+
+4.b
+CREATE TABLE marynarz AS (SELECT * FROM postac);
+CREATE TABLE marynarz LIKE postac;
+INSERT INTO marynarz select * from postac WHERE statek IS NOT NULL;
+
+5.a
+UPDATE postac SET statek = NULL;
+
+5.b
+DELETE FROM postac WHERE nazwa = 'Arvid';
+
+5.c
+DELETE FROM statek;
+
+5.d 
+DROP TABLE statek;
+
+5.e
+CREATE TABLE zwierz(id INT AUTO_INCREMENT PRIMARY KEY, nazwa VARCHAR(30), wiek INT);
+
+5.f
+INSERT INTO zwierz SELECT id_postaci, nazwa, wiek FROM postac WHERE rodzaj = 'ptak' OR rodzaj = 'waz';
