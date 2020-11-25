@@ -15,3 +15,31 @@ SELECT nazwa, AVG(waga) FROM zasob WHERE ilosc >= 4 GROUP BY nazwa HAVING AVG(wa
 
 2.3
 SELECT rodzaj, COUNT(nazwa) FROM zasob GROUP BY rodzaj HAVING COUNT(nazwa) > 1;
+
+3.1
+SELECT k.idKreatury, k.nazwa, z.idZasobu, z.ilosc FROM kreatura k, ekwipunek e WHERE k.idKreatury = e.idKreatury
+GROUP BY k.idKreatury;
+ 
+3.2
+SELECT k.idKreatury, k.nazwa, z.nazwa FROM kreatura k, ekwipunek e, zasob z WHERE k.idKreatury = e.idKreatury
+ AND e.idZasobu = z.idZasobu;
+
+3.3
+SELECT k.idKreatury, e.idEkwipunku FROM kreatura AS k LEFT JOIN ekwipunek AS e ON k.idKreatury
+= e.idZasobu WHERE idEkwipunku IS NULL;
+
+4.1
+SELECT k.nazwa, z.nazwa FROM kreatura k, ekwipunek e, zasob z WHERE k.idKreatury = e.idKreatury
+ AND e.idZasobu = z.idZasobu AND k.rodzaj = 'wiking' AND YEAR(dataUr) > 1669 AND YEAR(dataUr) < 1681;
+ 
+4.2
+SELECT k.nazwa FROM kreatura k, ekwipunek e, zasob z WHERE k.idKreatury = e.idKreatury
+ AND e.idZasobu = z.idZasobu AND z.rodzaj = 'jedzenie' ORDER BY k.dataUr LIMIT 5;
+ 
+4.3
+SELECT CONCAT(k.nazwa,' - ',k2.nazwa) FROM kreatura AS k, kreatura AS k2 WHERE k2.idKreatury=k.idkreatury+5;
+
+5.1
+select k.rodzaj, avg(e.ilosc*z.waga) as srednia from kreatura as k inner join ekwipunek as e
+inner join zasob as z on k.idKreatury=e.idKreatury and e.idZasobu=z.idZasobu where k.rodzaj
+NOT IN('malpa', 'waz') group by k.rodzaj having sum(e.ilosc)<30;
