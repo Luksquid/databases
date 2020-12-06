@@ -34,4 +34,9 @@ k.idKreatury GROUP BY w.id_wyprawy;
 SELECT w.nazwa, et.dziennik, length(et.dziennik) FROM wyprawa AS w INNER JOIN etapy_wyprawy AS et ON w.id_wyprawy=et.idWyprawy;
 
 4.2
-SELECT w.nazwa, et.dziennik, length(et.dziennik) FROM wyprawa AS w INNER JOIN etapy_wyprawy AS et ON w.id_wyprawy=et.idWyprawy;
+SELECT w.nazwa, AVG(z.waga) FROM wyprawa w, uczestnicy u, kreatura k, ekwipunek e, zasob z WHERE w.id_wyprawy = u.id_wyprawy AND
+u.id_uczestnika = k.idKreatury AND k.idKreatury = e.idKreatury AND e.idZasobu = z.idZasobu GROUP BY w.id_wyprawy;
+
+5.1
+SELECT k.nazwa, DATEDIFF(w.data_rozpoczecia, k.dataUr) FROM kreatura k, uczestnicy u, wyprawa w, etapy_wyprawy et, sektor s WHERE k.idKreatury = u.id_uczestnika 
+AND u.id_wyprawy = w.id_wyprawy AND w.id_wyprawy = et.idWyprawy AND et.idEtapu = s.id_sektora AND s.nazwa = 'Chatka dziadka';
